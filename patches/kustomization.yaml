@@ -1,0 +1,36 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- install.yaml
+
+patches:
+  # Add env http_proxy
+  - path: patch-deployment.yaml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: orc-controller-manager
+
+  # Replace namespace
+  - path: patch-namespace.yaml
+    target:
+      group: ""
+      version: v1
+      kind: Service
+      kind: "^(Service|ServiceAccount)$"
+
+  - path: patch-namespace.yaml
+    target:
+      group: apps
+      version: v1
+      kind: "^(Deployment|StatefulSet|DaemonSet|ReplicaSet)$"
+
+  - path: patch-namespace.yaml
+    target:
+      group: rbac.authorization.k8s.io
+      version: v1
+      kind: Role
+      kind: "^(Role|RoleBinding)$"
