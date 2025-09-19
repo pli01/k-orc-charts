@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k-orc.fullname" . }}-controller-manager-metrics-service
+  namespace: orc-system
+  labels:
+    control-plane: controller-manager
+  {{- include "k-orc.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.metricsService.type }}
+  selector:
+    control-plane: controller-manager
+    {{- include "k-orc.selectorLabels" . | nindent 4 }}
+  ports:
+  {{- .Values.metricsService.ports | toYaml | nindent 2 }}
