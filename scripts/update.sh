@@ -12,8 +12,9 @@ rm -rf "$CHART_NAME"
 curl -sSL "$INSTALL_URL" | helmify "$CHART_NAME"
 
 if  [ "$CHART_VERSION" != "latest" ]; then
-HELM_VERSION=${CHART_VERSION#v}
-sed -i -e "s/^version:.*/version: $HELM_VERSION/g" $CHART_NAME/Chart.yaml
-sed -i -e "s/^appVersion:.*/appVersion: \"$CHART_VERSION\"/g" $CHART_NAME/Chart.yaml
+  HELM_VERSION=${CHART_VERSION#v}
+  sed -i .bak -e "s/^version:.*/version: $HELM_VERSION/g" $CHART_NAME/Chart.yaml
+  sed -i .bak -e "s/^appVersion:.*/appVersion: \"$CHART_VERSION\"/g" $CHART_NAME/Chart.yaml
+  rm $CHART_NAME/Chart.yaml.bak
 fi
 echo "Helm chart in ./$CHART_NAME"
