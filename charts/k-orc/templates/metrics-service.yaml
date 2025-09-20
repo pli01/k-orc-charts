@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "k-orc.fullname" . }}-controller-manager-metrics-service
+  namespace: orc-system
   labels:
     control-plane: controller-manager
   {{- include "k-orc.labels" . | nindent 4 }}
