@@ -18,11 +18,11 @@ controllerManager:
       noProxy: ""
     image:
       repository: quay.io/orc/openstack-resource-controller
-      tag: v2.2.0
+      tag: v2.4.0
     resources:
       limits:
         cpu: 500m
-        memory: 128Mi
+        memory: 256Mi
       requests:
         cpu: 10m
         memory: 64Mi
